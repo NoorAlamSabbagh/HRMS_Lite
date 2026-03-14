@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Table, Form, Button, Alert, Card, Container, Spinner, Row, Col } from 'react-bootstrap';
+import API_URL from '../config';
 
 interface Employee {
   employee_id: string;
@@ -24,7 +25,7 @@ const Attendance: React.FC = () => {
 
   const fetchEmployees = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/employees');
+      const response = await axios.get(`${API_URL}/employees`);
       setEmployees(response.data);
     } catch (err: any) {
       setError('Failed to fetch employees');
@@ -35,7 +36,7 @@ const Attendance: React.FC = () => {
     if (!employeeId) return;
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:8000/attendance/${employeeId}`);
+      const response = await axios.get(`${API_URL}/attendance/${employeeId}`);
       setAttendanceRecords(response.data);
     } catch (err: any) {
       setError(err.response?.data?.detail || 'Failed to fetch attendance');
@@ -63,7 +64,7 @@ const Attendance: React.FC = () => {
     setError(null);
     setLoading(true);
     try {
-      await axios.post('http://localhost:8000/attendance', {
+      await axios.post(`${API_URL}/attendance`, {
         employee_id: selectedEmployee,
         date,
         status,

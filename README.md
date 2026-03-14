@@ -16,65 +16,55 @@ HRMS Lite is a lightweight, professional Human Resource Management System design
   - Features loading states, empty states, and robust error handling.
 - **Robust Backend**
   - Powered by FastAPI for high-performance RESTful APIs.
-  - MongoDB integration for flexible and persistent data storage.
+  - NeonDB (PostgreSQL) integration for reliable and persistent data storage.
   - Server-side validation for data integrity.
 
 ## 🛠️ Tech Stack
 
 - **Frontend:** React, TypeScript, Bootstrap, Axios, React Router
-- **Backend:** Python, FastAPI, Motor (Async MongoDB Driver), Pydantic
-- **Database:** MongoDB
+- **Backend:** Python, FastAPI, SQLAlchemy, Pydantic
+- **Database:** NeonDB (PostgreSQL)
 
-## 📋 Prerequisites
+## � Vercel Deployment
 
+This project is configured for a one-click deployment on Vercel as a monorepo.
+
+### 1. Push your code to GitHub
+Create a new repository on GitHub and push all the files in the project root (including `vercel.json`).
+
+### 2. Deploy on Vercel
+1. Go to the [Vercel Dashboard](https://vercel.com/dashboard) and click **"New Project"**.
+2. Import your GitHub repository.
+3. In the **Environment Variables** section, add:
+   - `DATABASE_URL`: Your NeonDB PostgreSQL connection string.
+   - `VITE_API_URL`: `/api` (this routes frontend requests to your FastAPI serverless function).
+4. Click **Deploy**.
+
+### 3. Database Setup
+The system automatically creates the necessary tables (`employees` and `attendance`) in your NeonDB database upon the first request.
+
+## ⚙️ Local Development
+
+### Prerequisites
 - **Python:** 3.8+
 - **Node.js:** 16+
-- **MongoDB:** Running locally or accessible via a connection string
+- **NeonDB:** A PostgreSQL connection string from [neon.tech](https://neon.tech)
 
-## ⚙️ Installation & Setup
-
-### 1. Clone the repository
+### Backend Setup
 ```bash
-git clone <your-repo-url>
-cd "Ethra AI"
-```
-
-### 2. Backend Setup
-```bash
-cd backend
-# Create a virtual environment (optional but recommended)
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
+cd api
 pip install -r requirements.txt
-
-# Create a .env file (optional, defaults provided in code)
-# MONGODB_URL=mongodb://localhost:27017
-# DATABASE_NAME=hrms_lite
-
-# Start the server
+# Set DATABASE_URL in .env
 python main.py
 ```
-The backend will be running at `http://localhost:8000`.
 
-### 3. Frontend Setup
+### Frontend Setup
 ```bash
-cd ../frontend
-# Install dependencies
+cd frontend
 npm install
-
-# Start the development server
+# Set VITE_API_URL in .env
 npm run dev
-```
-The frontend will be running at `http://localhost:5173` (or the port shown in your terminal).
-
-## 🧪 Testing the API
-A test script is provided in the backend directory to verify the API functionality:
-```bash
-cd backend
-python test_api.py
 ```
 
 ## 📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License.

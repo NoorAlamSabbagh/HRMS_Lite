@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Form, Button, Alert, Card, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import API_URL from '../config';
 
 const AddEmployee: React.FC = () => {
   const [employeeData, setEmployeeData] = useState({
@@ -23,7 +24,7 @@ const AddEmployee: React.FC = () => {
     setLoading(true);
     setError(null);
     try {
-      await axios.post('http://localhost:8000/employees', employeeData);
+      await axios.post(`${API_URL}/employees`, employeeData);
       alert('Employee added successfully!');
       navigate('/employees');
     } catch (err: any) {

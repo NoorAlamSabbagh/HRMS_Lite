@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, Button, Spinner, Alert } from 'react-bootstrap';
+import API_URL from '../config';
 
 interface Employee {
   employee_id: string;
@@ -17,7 +18,7 @@ const EmployeeList: React.FC = () => {
   const fetchEmployees = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:8000/employees');
+      const response = await axios.get(`${API_URL}/employees`);
       setEmployees(response.data);
       setError(null);
     } catch (err: any) {
@@ -30,7 +31,7 @@ const EmployeeList: React.FC = () => {
   const deleteEmployee = async (employeeId: string) => {
     if (window.confirm('Are you sure you want to delete this employee?')) {
       try {
-        await axios.delete(`http://localhost:8000/employees/${employeeId}`);
+        await axios.delete(`${API_URL}/employees/${employeeId}`);
         fetchEmployees();
       } catch (err: any) {
         setError(err.response?.data?.detail || 'Failed to delete employee');

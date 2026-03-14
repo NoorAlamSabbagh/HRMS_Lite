@@ -1,6 +1,8 @@
 fastapi
 uvicorn
-motor
+sqlalchemy
+psycopg2-binary
+databases
 pydantic[email]
 python-dotenv
-pymongo
+requests
